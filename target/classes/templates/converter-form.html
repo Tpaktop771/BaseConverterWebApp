@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>BaseConverterWebApp</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+</head>
+<body class="bg-light">
+<div class="container min-vh-100 d-flex align-items-center justify-content-center">
+    <div class="row w-100 justify-content-center">
+        <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <h1 class="h4 text-center mb-4">Number Base Converter</h1>
+                    <form method="post" th:action="@{/converter}">
+                        <div class="mb-3">
+                            <label class="form-label">From base</label>
+                            <select class="form-select" name="fromBase">
+                                <option th:each="b : ${bases}" th:text="${b}" th:value="${b}"></option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">To base</label>
+                            <select class="form-select" name="toBase">
+                                <option th:each="b : ${bases}" th:text="${b}" th:value="${b}"></option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Value (positive integer)</label>
+                            <input class="form-control" type="text" name="value" th:value="${value}">
+                            <div class="form-text">Digits A..F allowed for base 16.</div>
+                        </div>
+                        <div class="d-grid">
+                            <button class="btn btn-primary" type="submit">Convert</button>
+                        </div>
+                    </form>
+                    <div class="mt-3" th:if="${result}">
+                        <div class="alert alert-success">
+                            <strong>Result:</strong>
+                            <span th:text="${fromBase}"></span>
+                            <span>→</span>
+                            <span th:text="${toBase}"></span>
+                            <span> : </span>
+                            <code th:text="${result}"></code>
+                        </div>
+                    </div>
+                    <div class="mt-3" th:if="${error}">
+                        <div class="alert alert-danger" th:text="${error}"></div>
+                    </div>
+                    <div class="text-center mt-4">
+                        <a class="btn btn-outline-secondary" th:href="@{/}">Go to index</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
